@@ -1,0 +1,38 @@
+version: "3"
+services:
+    web:
+        build: 
+            context: .
+            dockerfile: Dockerfile-Website
+        ports:
+            - "${HTTP_PORT}:80"
+        depends_on:
+            - db
+        environment:
+            ConnectionStrings__DefaultConnection: ${CONNECTIONSTRING}
+    db:
+        build: ./mssql
+        ports:
+            - "1433:1433"
+        volumes:
+            - "dbdata:/var/opt/mssql"
+        environment:
+            SA_PASSWORD: ${DB_PASSWORD}
+            ACCEPT_EULA: "Y"
+            MSSQL_PID: ${MSSQL_PID}
+            DATABASE: ${DATABASE}
+    worker:
+        build: 
+            context: .
+            dockerfile: Dockerfile-Worker
+        ports:
+            - "${SMTP_PORT}:587"
+        depends_on:
+            - db
+        environment:
+            ConnectionStrings__DefaultConnection: ${CONNECTIONSTRING}
+            SmtpServer__Secure: ${SMTPSECURE}
+            SmtpServer__CertificateFilePath: ${SMTPCERTIFICATEFILEPATH}
+            SmtpServer__CertificatePasswordFilePath: ${SMTPCERTIFICATEPASSWORDFILEPATH}
+volumes:
+    dbdata:

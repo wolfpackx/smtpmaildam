@@ -1,0 +1,76 @@
+2020-09-14 23:22:11,140 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:22:11,151 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:22:11,152 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:35:44,822 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:35:44,832 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:35:44,833 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:41:31,834 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:41:31,846 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:41:31,848 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:42:28,648 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:42:28,659 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:42:28,660 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:44:27,759 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:44:27,769 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:44:27,770 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:45:06,241 [5] WARN SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-14 23:47:17,796 [5] WARN SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-14 23:48:10,410 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-14 23:48:10,421 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-14 23:48:10,422 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-14 23:48:23,017 [6] WARN SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-15 19:16:53,169 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-15 19:16:53,182 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-15 19:16:53,183 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-15 19:19:35,963 [6] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-15 19:20:22,099 [6] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-15 19:35:29,948 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-15 19:35:29,958 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-15 19:35:29,959 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-15 19:35:46,773 [6] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-15 19:50:17,698 [14] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-15 19:50:21,957 [6] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-16 22:10:55,055 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-16 22:10:55,071 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-16 22:10:55,073 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-16 22:14:07,925 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-16 22:52:14,040 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-16 22:52:14,050 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-16 22:52:14,051 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-16 22:52:23,833 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-16 23:40:04,061 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-16 23:40:04,071 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-16 23:40:04,072 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-19 19:53:43,107 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-19 19:53:43,119 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-19 19:53:43,120 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-19 19:57:16,751 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-19 19:57:16,762 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-19 19:57:16,763 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-19 19:57:25,716 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session f6b535dc-d902-49a9-8de1-43d1144b84c6
+2020-09-19 19:57:27,163 [5] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail 4e80ad3a-8deb-4065-a534-55bce6d09e2b in session f6b535dc-d902-49a9-8de1-43d1144b84c6 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-19 19:57:46,127 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 798b26f2-6443-4f68-b04c-e2d0bacc8d66
+2020-09-19 19:57:46,256 [9] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail 937c5d3c-d9d6-42b5-bb46-a170d71730a0 in session 798b26f2-6443-4f68-b04c-e2d0bacc8d66 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-19 19:57:52,969 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 03916981-9b41-43bc-bbb6-89694b8414d1
+2020-09-19 19:57:53,043 [12] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail 7567202a-9526-4d67-af8b-acd87e28eb5b in session 03916981-9b41-43bc-bbb6-89694b8414d1 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:26,997 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-21 20:13:27,008 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-21 20:13:27,009 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Worker
+2020-09-21 20:13:38,258 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session e32c0e4a-0cba-4360-9287-e3cd295fca96
+2020-09-21 20:13:38,601 [5] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail cafe6737-d6cc-467a-82d8-314cd0512694 in session e32c0e4a-0cba-4360-9287-e3cd295fca96 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:40,524 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 24945b53-41b3-41d5-8b05-3a640af7b1f2
+2020-09-21 20:13:40,667 [10] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail bb97feb1-e06a-4c4e-9348-b14903cf18e0 in session 24945b53-41b3-41d5-8b05-3a640af7b1f2 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:42,082 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 9516f25b-b681-4bd4-b65f-9d246bc8e880
+2020-09-21 20:13:42,146 [5] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail faa5aebe-bc23-428e-9e72-7c76d49010ee in session 9516f25b-b681-4bd4-b65f-9d246bc8e880 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:43,150 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 0f492bc7-69dd-4739-ab94-276e6fa59f18
+2020-09-21 20:13:43,237 [5] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail aec18869-8031-4eb7-b67c-9e35531f317b in session 0f492bc7-69dd-4739-ab94-276e6fa59f18 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:44,269 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 73c96e9d-290d-4728-a917-71b5d6474c79
+2020-09-21 20:13:44,327 [5] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail ac9dce57-a289-4630-ba5d-937c0a47f489 in session 73c96e9d-290d-4728-a917-71b5d6474c79 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:45,273 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 229256b8-3b25-45cc-860e-6fdb31c145d7
+2020-09-21 20:13:45,617 [10] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail 3c104045-f38d-490b-9ee9-bb79a5330e97 in session 229256b8-3b25-45cc-860e-6fdb31c145d7 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-21 20:13:46,378 [5] INFO SmtpMailtrap.Worker.Smtp.UserAuthenticator - Succesfull login for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9 in session 66cbae7a-709e-4c02-928d-beeab65985b3
+2020-09-21 20:13:46,454 [10] ERROR SmtpMailtrap.Worker.Smtp.MessageStore - Storing mail 9983e9e2-b133-4588-93d4-8d032b058ec2 in session 66cbae7a-709e-4c02-928d-beeab65985b3 for mailbox 636becf0-8b7f-4fa2-9203-02e7e4b357f9
+2020-09-22 21:16:42,796 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2020-09-22 21:16:42,810 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2020-09-22 21:16:42,811 [1] INFO Microsoft.Hosting.Lifetime - Content root path: E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Worker
+2020-09-22 21:17:17,407 [4] INFO Microsoft.Hosting.Lifetime - Application is shutting down...

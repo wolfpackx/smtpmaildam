@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Mail Details";
+}
+
+@model SmtpMailDam.Website.Models.MailViewModel
+
+<div>
+    <h4>Mail</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReceiveDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReceiveDate)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <p><a asp-action="GetMailMessageEml" asp-route-id="@Model.MailId" class="btn btn-primary">Download message</a></p>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#html">Html</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#text">Text</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#renderedhtml">Rendered html</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#raw">Raw</a></li>
+</ul>
+
+<div class="tab-content" style="min-height:400px">
+    <div id="html" class="tab-pane fade show active">
+        <pre>@Html.Raw(Model.HtmlBody)</pre>
+    </div>
+    <div id="text" class="tab-pane fade">
+        <pre>@Html.Raw(Model.TextBody)</pre>
+    </div>
+    <div id="renderedhtml" class="tab-pane fade">
+        @Model.RenderedHtml
+    </div>
+    <div id="raw" class="tab-pane fade">
+        <pre>@Html.Raw(Model.RawEmail)</pre>
+    </div>
+</div>
+<hr />
+<div>
+    <a asp-controller="Mailbox" asp-action="Details" asp-route-id="@Model.MailboxId" class="btn btn-secondary">Back to mailbox</a>
+</div>

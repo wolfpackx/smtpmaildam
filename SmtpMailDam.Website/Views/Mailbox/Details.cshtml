@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model SmtpMailDam.Website.Models.MailboxViewModel
+
+<div>
+    <h4>Mailbox</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MailboxId" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to overview</a>
+</div>
+
+<div>
+    <br />
+</div>
+<div>
+    <h4>Mails</h4>
+    <p><a asp-action="ClearMails" asp-route-id="@Model.MailboxId" class="btn btn-primary">Clear mails</a> | <a asp-action="Refresh" asp-route-id="@Model.MailboxId" class="btn btn-primary">Refresh</a></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    To
+                </th>
+                <th>
+                    From
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Recieved date
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Mails)
+            {
+            <tr @{if (item.Status == (int)SmtpMailDam.Common.Enums.MailStatus.Unread) { <text>class="table-primary" style="font-weight: bold;"</text> } }>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.From)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceiveDate)
+                </td>
+                <td>
+                    <a asp-controller="Mail" asp-action="Details" asp-route-id="@item.MailId" class="btn btn-primary">Details</a> |
+                    <a asp-controller="Mail" asp-action="Delete" asp-route-id="@item.MailId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
