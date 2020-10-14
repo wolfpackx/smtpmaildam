@@ -9,11 +9,6 @@ E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\Smt
 E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.dll
 E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.pdb
 E:\projecten\dotnet\SmtpMailtrap\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.genruntimeconfig.cache
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Website\bin\Debug\netcoreapp3.1\SmtpMailDam.Common.deps.json
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Website\bin\Debug\netcoreapp3.1\SmtpMailDam.Common.runtimeconfig.json
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Website\bin\Debug\netcoreapp3.1\SmtpMailDam.Common.runtimeconfig.dev.json
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Website\bin\Debug\netcoreapp3.1\SmtpMailDam.Common.dll
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Website\bin\Debug\netcoreapp3.1\SmtpMailDam.Common.pdb
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.csprojAssemblyReference.cache
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.AssemblyInfoInputs.cache
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.AssemblyInfo.cs
@@ -21,10 +16,3 @@ E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\Smtp
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.dll
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.pdb
 E:\projecten\dotnet\SmtpMailDam\SmtpMailtrap.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.genruntimeconfig.cache
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.csprojAssemblyReference.cache
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.AssemblyInfoInputs.cache
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.AssemblyInfo.cs
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.csproj.CoreCompileInputs.cache
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.dll
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.pdb
-E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Common\obj\Debug\netcoreapp3.1\SmtpMailDam.Common.genruntimeconfig.cache

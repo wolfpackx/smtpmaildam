@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {}
+    "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {}
   },
   "projects": {
-    "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {
+    "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj",
+        "projectUniqueName": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj",
         "projectName": "SmtpMailDam.Common",
-        "projectPath": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj",
+        "projectPath": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj",
         "packagesPath": "C:\\Users\\Wouter\\.nuget\\packages\\",
-        "outputPath": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\obj\\",
+        "outputPath": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Wouter\\AppData\\Roaming\\NuGet\\NuGet.Config",

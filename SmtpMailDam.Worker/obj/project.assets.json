@@ -6723,11 +6723,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Worker\\SmtpMailDam.Worker.csproj",
+      "projectUniqueName": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Worker\\SmtpMailDam.Worker.csproj",
       "projectName": "SmtpMailDam.Worker",
-      "projectPath": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Worker\\SmtpMailDam.Worker.csproj",
+      "projectPath": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Worker\\SmtpMailDam.Worker.csproj",
       "packagesPath": "C:\\Users\\Wouter\\.nuget\\packages\\",
-      "outputPath": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Worker\\obj\\",
+      "outputPath": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Worker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Wouter\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6743,8 +6743,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {
-              "projectPath": "E:\\projecten\\dotnet\\smtpmaildam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj"
+            "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj": {
+              "projectPath": "E:\\projecten\\dotnet\\SmtpMailDam\\SmtpMailDam.Common\\SmtpMailDam.Common.csproj"
             }
           }
         }

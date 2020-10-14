@@ -42,7 +42,7 @@ namespace SmtpMailDam.Worker
                 smtpserverOptions.GetValue<bool>("Secure"),
                 smtpserverOptions.GetValue<string>("CertificateFilePath"),
                 smtpserverOptions.GetValue<string>("CertificatePasswordFilePath"),
-                _serviceProvider.GetRequiredService<ILogger<Smtp.SmtpServer>>(),);
+                _serviceProvider.GetRequiredService<ILogger<Smtp.SmtpServer>>());
 
             await smtpServer.Run();
         }
