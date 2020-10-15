@@ -28,10 +28,58 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Password)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SmtpHost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SmtpHost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SmtpPort)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SmtpPort)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapEnabled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapEnabled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapHost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapHost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapPort)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapPort)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapSSLEnabled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapSSLEnabled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapUsername)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapUsername)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImapPassword)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImapPassword)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MailboxId" class="btn btn-primary">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.MailboxId" asp-route-origin="Details" class="btn btn-primary">Edit</a> |
     <a asp-action="Index" class="btn btn-secondary">Back to overview</a>
 </div>
 

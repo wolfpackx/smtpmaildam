@@ -13,6 +13,7 @@ using SmtpMailDam.Website.Models;
 using SmtpMailDam.Common.Utillity;
 using MimeKit;
 using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
 
 namespace SmtpMailDam.Website.Controllers
 {
@@ -21,12 +22,14 @@ namespace SmtpMailDam.Website.Controllers
         private ILogger<MailboxController> logger;
         private IMailboxRepository mailboxRepository;
         private IMailRepository mailRepository;
+        private readonly IConfiguration _configuration;
 
-        public MailboxController(ILogger<MailboxController> logger, IMailboxRepository mailboxRepository, IMailRepository mailRepository)
+        public MailboxController(ILogger<MailboxController> logger, IMailboxRepository mailboxRepository, IMailRepository mailRepository, IConfiguration configuration)
         {
             this.logger = logger;
             this.mailRepository = mailRepository;
             this.mailboxRepository = mailboxRepository;
+            this._configuration = configuration;
         }
 
         // GET: MailboxController
@@ -74,9 +77,10 @@ namespace SmtpMailDam.Website.Controllers
         }
 
         // GET: MailboxController/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id, string origin)
         {
             var mailbox = this.MapMailboxToMailboxViewModel(this.mailboxRepository.Get(id, false));
+            mailbox.Origin = origin;
 
             ViewData["Title"] = $"Edit mailbox {mailbox.Name}";
 
@@ -86,7 +90,7 @@ namespace SmtpMailDam.Website.Controllers
         // POST: MailboxController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, [Bind("MailboxId, Name")] MailboxViewModel mailbox)
+        public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin")] MailboxViewModel mailbox)
         {
             if (id != mailbox.MailboxId)
             {
@@ -96,7 +100,7 @@ namespace SmtpMailDam.Website.Controllers
             if (ModelState.IsValid)
             {
                 this.mailboxRepository.Update(this.MapMailboxViewModelToMailbox(mailbox));
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(mailbox.Origin, new { Id = mailbox.MailboxId });
             }
 
             return View(mailbox);
@@ -150,12 +154,22 @@ namespace SmtpMailDam.Website.Controllers
                 return new MailboxViewModel();
             }
 
+            var smtpserverOptions = this._configuration.GetSection("SmtpServer");
+
             return new MailboxViewModel
             {
                 MailboxId = mailbox.MailboxId,
                 Name = mailbox.Name,
                 Username = mailbox.Username,
                 Password = mailbox.Password,
+                SmtpHost = smtpserverOptions.GetValue<string>("Host"),
+                SmtpPort = smtpserverOptions.GetValue<int>("Port"),
+                ImapEnabled = mailbox.ImapEnabled,
+                ImapHost = mailbox.ImapHost,
+                ImapPort = mailbox.ImapPort == 0 ? (int?)null: mailbox.ImapPort,
+                ImapSSLEnabled = mailbox.ImapSSLEnabled,
+                ImapUsername = mailbox.ImapUsername,
+                ImapPassword = mailbox.ImapPassword,
                 Mails = mailbox.Mails != null ? mailbox.Mails.Select(m => this.MapMailToMailViewModel(m, false)).ToList() : new List<MailViewModel>()
             };
         }
@@ -221,7 +235,13 @@ namespace SmtpMailDam.Website.Controllers
                 MailboxId = mailboxViewModel.MailboxId,
                 Name = mailboxViewModel.Name,
                 Username = mailboxViewModel.Username,
-                Password = mailboxViewModel.Password
+                Password = mailboxViewModel.Password,
+                ImapEnabled = mailboxViewModel.ImapEnabled,
+                ImapHost = mailboxViewModel.ImapHost,
+                ImapPort = mailboxViewModel.ImapPort.HasValue ? mailboxViewModel.ImapPort.Value : 0,
+                ImapSSLEnabled = mailboxViewModel.ImapSSLEnabled,
+                ImapUsername = mailboxViewModel.ImapUsername,
+                ImapPassword = mailboxViewModel.ImapPassword,
             };
         }
     }

@@ -66,7 +66,16 @@ namespace SmtpMailDam.Common.Repositories
 
         public void Update(Mailbox mailbox)
         {
-            this.context.Mailbox.Update(mailbox);
+            Mailbox originalMailbox = this.Get(mailbox.MailboxId, false);
+
+            originalMailbox.ImapEnabled = mailbox.ImapEnabled;
+            originalMailbox.ImapHost = mailbox.ImapHost;
+            originalMailbox.ImapPort = mailbox.ImapPort;
+            originalMailbox.ImapSSLEnabled = mailbox.ImapSSLEnabled;
+            originalMailbox.ImapUsername = mailbox.ImapUsername;
+            originalMailbox.ImapPassword = mailbox.ImapPassword;
+
+            this.context.Mailbox.Update(originalMailbox);
             this.context.SaveChanges();
         }
     }

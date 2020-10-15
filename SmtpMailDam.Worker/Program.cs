@@ -12,6 +12,8 @@ using SmtpMailDam.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace SmtpMailDam.Worker
 {
@@ -25,13 +27,20 @@ namespace SmtpMailDam.Worker
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
+                .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    //To get the location the assembly normally resides on disk or the install directory
+                    string directory = new Uri(
+                        Path.GetDirectoryName(
+                            Assembly.GetExecutingAssembly().CodeBase)
+                        ).LocalPath;
+
                     IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile(@Directory.GetCurrentDirectory() + "/appsettings.json")
-                    .AddEnvironmentVariables()
-                    .Build();
+                        .SetBasePath(directory)
+                        .AddJsonFile("appsettings.json")
+                        .AddEnvironmentVariables()
+                        .Build();
                     var connectionString = configuration.GetConnectionString("DefaultConnection");
 
                     services.AddHostedService<Worker>();
@@ -50,10 +59,17 @@ namespace SmtpMailDam.Worker
                 })
                 .ConfigureAppConfiguration((configureBuilder) => 
                 {
-                    configureBuilder.AddJsonFile("appsettings.json", false)
+                    //To get the location the assembly normally resides on disk or the install directory
+                    string directory = new Uri(
+                        Path.GetDirectoryName(
+                            Assembly.GetExecutingAssembly().CodeBase)
+                        ).LocalPath;
+
+                    configureBuilder
+                        .SetBasePath(directory)
+                        .AddJsonFile(@"appsettings.json", false)
                         .AddEnvironmentVariables();
-                })
-                .UseWindowsService();
+                });
 
             return host;
         }

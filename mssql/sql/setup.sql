@@ -1,4 +1,4 @@
-IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
@@ -167,7 +167,7 @@ GO
 IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'00000000000000_CreateIdentitySchema')
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'00000000000000_CreateIdentitySchema', N'3.1.8');
+    VALUES (N'00000000000000_CreateIdentitySchema', N'3.1.9');
 END;
 
 GO
@@ -266,7 +266,7 @@ GO
 IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20200912141336_MailboxAndMailTables')
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20200912141336_MailboxAndMailTables', N'3.1.8');
+    VALUES (N'20200912141336_MailboxAndMailTables', N'3.1.9');
 END;
 
 GO
@@ -321,7 +321,58 @@ GO
 IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20200916185536_MailImprovements')
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20200916185536_MailImprovements', N'3.1.8');
+    VALUES (N'20200916185536_MailImprovements', N'3.1.9');
 END;
 
 GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapEnabled] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapHost] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapPassword] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapPort] int NOT NULL DEFAULT 0;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapSSLEnabled] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [ImapUsername] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201015184910_Imap')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201015184910_Imap', N'3.1.9');
+END;
+
+GO
+

@@ -10,6 +10,8 @@ services:
             - db
         environment:
             ConnectionStrings__DefaultConnection: ${CONNECTIONSTRING}
+            SmtpServer__Port: ${SMTP_PORT}
+            SmtpServer__Host: ${SMTP_HOST}
     db:
         build: ./mssql
         ports:
