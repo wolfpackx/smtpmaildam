@@ -4,3 +4,5 @@
 /SmtpMailDam.Website/obj
 /SmtpMailDam.Worker/bin
 /SmtpMailDam.Worker/obj
+/SmtpMailDam.Website/main.log
+/SmtpMailDam.Worker/main.log

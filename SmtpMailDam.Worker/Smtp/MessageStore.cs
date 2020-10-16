@@ -18,6 +18,8 @@ using MailKit.Net.Imap;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace SmtpMailDam.Worker.Smtp
 {
@@ -84,6 +86,7 @@ namespace SmtpMailDam.Worker.Smtp
 
                 using (var client = new ImapClient())
                 {
+                    client.ServerCertificateValidationCallback = RemoteCertificateValidationCallback;
                     client.Connect(mailbox.ImapHost, mailbox.ImapPort, mailbox.ImapSSLEnabled ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.Auto);
 
                     client.Authenticate(mailbox.ImapUsername, mailbox.ImapPassword);
@@ -102,6 +105,11 @@ namespace SmtpMailDam.Worker.Smtp
                 logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailboxId} in imap because: {e.Message}");
                 return Task.FromResult(SmtpResponse.TransactionFailed);
             }
+        }
+
+        public bool RemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
     }
 }

@@ -13,6 +13,7 @@ The features of SmtpMailDam
 - Setup a mailbox for each environment that you need
 - Every mailbox has a unique username/password combination
 - View and download mail messages through the website component
+- Send mails to an Imap server through the integrated Imap client
 
 ## Installing / Getting started
 
@@ -85,6 +86,7 @@ For Docker-Compose there is a single .env file that contains all the configurati
 | DB_PASSWORD | Sa user password | "P@ssw0rd" |
 | HTTP_PORT | HTTP port for the SmtpMailDam.Website | 80 |
 | SMTP_PORT | Smtp port the SmtpMailDam.Worker | 587 |
+| SMTP_HOST | Smtp host under which the Smtp server can be reached | 587 |
 | MSSQL_PID | The MS Sql server product type. See it with the Docker images for more information. The default value is for the "free" version with limits. | Express |
 | DATABASE | The database name that contains the data of SmtpMailDam. | smtpmailtrap |
 | SMTPSECURE | Secure SMTP with a certificate | false |
@@ -113,6 +115,8 @@ The configuration for the logging can be found in the log4net.config file.
 | Setting | Description | Default value |
 | --- | ---| --- |
 | ConnectionStrings:DefaultConnection | The database connection string used by the SmtpMailDam.Website component. This can be overriden in Docker-Compose with the CONNECTIONSTRING setting. | "Server=192.168.1.202;Database=smtpmaildam;User Id=sa;Password=P@ssw0rd;" |
+| SmtpServer:Port | The port on which the SmtpMailDam.Worker component is running. This is used to show the necessary configuration on the mailbox. This can be overriden in Docker-Compose with the SMTP_PORT setting. | 587 |
+| SmtpServer:Host | The name of the host on which the SmtpMailDam.Worker component is running. This is used to show the necessary configuration on the mailbox. This can be overriden in Docker-Compose with the SMTP_HOST setting. | "localhost" |
 
 ## Licensing
 
