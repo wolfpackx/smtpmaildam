@@ -6,7 +6,10 @@
 @model SmtpMailDam.Website.Models.MailViewModel
 
 <div>
-    <h4>Mail</h4>
+    <h4>
+        <a asp-controller="Mailbox" asp-action="Details" asp-route-id="@Model.MailboxId"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" /></svg></a>&nbsp;
+        Mail
+    </h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -37,7 +40,7 @@
 </div>
 
 <div>
-    <p><a asp-action="GetMailMessageEml" asp-route-id="@Model.MailId" class="btn btn-primary">Download message</a></p>
+    <p><a asp-action="GetMailMessageEml" asp-route-id="@Model.MailId" class="btn btn-primary px-3" title="Download message"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">    <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z" /></svg></a></p>
 </div>
 
 <ul class="nav nav-tabs">
@@ -62,6 +65,3 @@
     </div>
 </div>
 <hr />
-<div>
-    <a asp-controller="Mailbox" asp-action="Details" asp-route-id="@Model.MailboxId" class="btn btn-secondary">Back to mailbox</a>
-</div>

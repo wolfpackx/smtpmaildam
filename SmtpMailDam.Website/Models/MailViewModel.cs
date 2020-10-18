@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +15,7 @@ namespace SmtpMailDam.Website.Models
 
         public string To { get; set; }
 
+        [DisplayName("Received date")]
         public DateTime ReceiveDate { get; set; }
 
         public string Subject { get; set; }

@@ -27,6 +27,8 @@ namespace SmtpMailDam.Common.Models
 
         public string ImapPassword { get; set; }
 
+        public bool Passthrough { get; set; }
+
         public ICollection<Mail> Mails { get; set; }
     }
 }

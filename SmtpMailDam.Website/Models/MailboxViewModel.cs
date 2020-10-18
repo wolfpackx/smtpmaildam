@@ -40,6 +40,9 @@ namespace SmtpMailDam.Website.Models
         [DisplayName("Imap password")]
         public string ImapPassword { get; set; }
 
+        [DisplayName("Passthrough")]
+        public bool Passthrough { get; set; }
+
         public string Origin { get; set; }
 
         public IEnumerable<MailViewModel> Mails { get; set; }

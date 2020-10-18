@@ -74,6 +74,7 @@ namespace SmtpMailDam.Common.Repositories
             originalMailbox.ImapSSLEnabled = mailbox.ImapSSLEnabled;
             originalMailbox.ImapUsername = mailbox.ImapUsername;
             originalMailbox.ImapPassword = mailbox.ImapPassword;
+            originalMailbox.Passthrough = mailbox.Passthrough;
 
             this.context.Mailbox.Update(originalMailbox);
             this.context.SaveChanges();

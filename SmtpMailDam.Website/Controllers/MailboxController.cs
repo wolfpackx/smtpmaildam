@@ -62,7 +62,7 @@ namespace SmtpMailDam.Website.Controllers
         // POST: MailboxController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Name")] MailboxViewModel mailbox)
+        public ActionResult Create([Bind("Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Passthrough")] MailboxViewModel mailbox)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace SmtpMailDam.Website.Controllers
         // POST: MailboxController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin")] MailboxViewModel mailbox)
+        public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin, Passthrough")] MailboxViewModel mailbox)
         {
             if (id != mailbox.MailboxId)
             {
@@ -170,7 +170,8 @@ namespace SmtpMailDam.Website.Controllers
                 ImapSSLEnabled = mailbox.ImapSSLEnabled,
                 ImapUsername = mailbox.ImapUsername,
                 ImapPassword = mailbox.ImapPassword,
-                Mails = mailbox.Mails != null ? mailbox.Mails.Select(m => this.MapMailToMailViewModel(m, false)).ToList() : new List<MailViewModel>()
+                Passthrough = mailbox.Passthrough,
+                Mails = mailbox.Mails != null ? mailbox.Mails.Select(m => this.MapMailToMailViewModel(m, false)).OrderByDescending(m => m.ReceiveDate).ToList() : new List<MailViewModel>()
             };
         }
 
@@ -242,6 +243,7 @@ namespace SmtpMailDam.Website.Controllers
                 ImapSSLEnabled = mailboxViewModel.ImapSSLEnabled,
                 ImapUsername = mailboxViewModel.ImapUsername,
                 ImapPassword = mailboxViewModel.ImapPassword,
+                Passthrough = mailboxViewModel.Passthrough
             };
         }
     }

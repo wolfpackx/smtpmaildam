@@ -376,3 +376,18 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201018171646_MessagePassthrough')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [Passthrough] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201018171646_MessagePassthrough')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201018171646_MessagePassthrough', N'3.1.9');
+END;
+
+GO
+

@@ -34,18 +34,66 @@ namespace SmtpMailDam.Worker.Smtp
             Guid sessionId = (Guid)context.Properties[SmtpServerConstants.SessionId];
             var mailboxId = (Guid)context.Properties[SmtpServerConstants.Mailbox];
 
-            MimeMessage message = null;
             var mailId = Guid.NewGuid();
 
+            var mailboxRepository = scope.ServiceProvider.GetService<IMailboxRepository>();
+
+            var mailbox = mailboxRepository.Get(mailboxId, false);
+
+            var mailRepository = scope.ServiceProvider.GetService<IMailRepository>();
+
+            var textMessage = (ITextMessage)transaction.Message;
+
+            MimeMessage message = MimeMessage.Load(textMessage.Content);
+
+            bool result = true;
+
+            if (mailbox.ImapEnabled && message != null)
+            {
+                result = SendMessageToImap(scope, logger, mailbox, message, sessionId, mailId);
+            }
+
+            if (!mailbox.Passthrough && message != null)
+            {
+                result = result && SaveMessage(logger, mailRepository, textMessage, mailId, message, mailboxId, sessionId);
+            }
+
+            return result ? Task.FromResult(SmtpResponse.Ok) : Task.FromResult(SmtpResponse.TransactionFailed);
+        }
+
+        private bool SendMessageToImap(IServiceScope scope, ILogger<MessageStore> logger, Common.Models.Mailbox mailbox, MimeMessage message, Guid sessionId, Guid mailId)
+        {
             try
             {
-                var mailRepository = scope.ServiceProvider.GetService<IMailRepository>();
-                
+                using (var client = new ImapClient())
+                {
+                    client.ServerCertificateValidationCallback = RemoteCertificateValidationCallback;
+                    client.Connect(mailbox.ImapHost, mailbox.ImapPort, mailbox.ImapSSLEnabled ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.Auto);
 
-                var textMessage = (ITextMessage)transaction.Message;
+                    client.Authenticate(mailbox.ImapUsername, mailbox.ImapPassword);
 
-                message = MimeMessage.Load(textMessage.Content);
+                    client.Inbox.Append(message);
 
+                    client.Disconnect(true);
+                }
+
+                logger.LogInformation($"Storing mail {mailId} in session {sessionId} for mailbox {mailbox.MailboxId} in imap");
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailbox.MailboxId} in imap because: {e.Message}");
+
+                return false;
+
+            }
+        }
+
+        private bool SaveMessage(ILogger<MessageStore> logger, IMailRepository mailRepository, ITextMessage textMessage, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
+        {
+            try
+            {
                 using var ms = new MemoryStream();
                 textMessage.Content.Position = 0;
                 textMessage.Content.CopyTo(ms);
@@ -67,43 +115,14 @@ namespace SmtpMailDam.Worker.Smtp
                 mailRepository.Create(mail);
 
                 logger.LogInformation($"Storing mail {mailId} in session {sessionId} for mailbox {mailboxId}");
+
+                return true;
             }
             catch (Exception e)
             {
                 logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailboxId} because: {e.Message}");
-            }
 
-            try
-            {
-                var mailboxRepository = scope.ServiceProvider.GetService<IMailboxRepository>();
-
-                var mailbox = mailboxRepository.Get(mailboxId, false);
-
-                if (!mailbox.ImapEnabled || message == null)
-                {
-                    return Task.FromResult(SmtpResponse.Ok);
-                }
-
-                using (var client = new ImapClient())
-                {
-                    client.ServerCertificateValidationCallback = RemoteCertificateValidationCallback;
-                    client.Connect(mailbox.ImapHost, mailbox.ImapPort, mailbox.ImapSSLEnabled ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.Auto);
-
-                    client.Authenticate(mailbox.ImapUsername, mailbox.ImapPassword);
-
-                    client.Inbox.Append(message);
-
-                    client.Disconnect(true);
-                }
-
-                logger.LogInformation($"Storing mail {mailId} in session {sessionId} for mailbox {mailboxId} in imap");
-
-                return Task.FromResult(SmtpResponse.Ok);
-            }
-            catch(Exception e)
-            {
-                logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailboxId} in imap because: {e.Message}");
-                return Task.FromResult(SmtpResponse.TransactionFailed);
+                return false;
             }
         }
 

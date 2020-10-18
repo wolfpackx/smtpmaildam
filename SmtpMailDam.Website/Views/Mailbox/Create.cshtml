@@ -48,6 +48,11 @@
                 <span asp-validation-for="ImapPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Passthrough" class="control-label"></label>
+                <input asp-for="Passthrough" class="form-control" />
+                <span asp-validation-for="Passthrough" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </form>
