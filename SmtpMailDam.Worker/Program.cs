@@ -31,10 +31,7 @@ namespace SmtpMailDam.Worker
                 .ConfigureServices((hostContext, services) =>
                 {
                     //To get the location the assembly normally resides on disk or the install directory
-                    string directory = new Uri(
-                        Path.GetDirectoryName(
-                            Assembly.GetExecutingAssembly().CodeBase)
-                        ).LocalPath;
+                    string directory = GetCurrentDirectory();
 
                     IConfigurationRoot configuration = new ConfigurationBuilder()
                         .SetBasePath(directory)
@@ -60,10 +57,7 @@ namespace SmtpMailDam.Worker
                 .ConfigureAppConfiguration((configureBuilder) => 
                 {
                     //To get the location the assembly normally resides on disk or the install directory
-                    string directory = new Uri(
-                        Path.GetDirectoryName(
-                            Assembly.GetExecutingAssembly().CodeBase)
-                        ).LocalPath;
+                    string directory = GetCurrentDirectory();
 
                     configureBuilder
                         .SetBasePath(directory)
@@ -72,6 +66,21 @@ namespace SmtpMailDam.Worker
                 });
 
             return host;
+        }
+
+        private static string GetCurrentDirectory()
+        {
+            try
+            {
+                return new Uri(
+                        Path.GetDirectoryName(
+                            Assembly.GetExecutingAssembly().CodeBase)
+                        ).LocalPath;
+            }
+            catch
+            {
+                return Directory.GetCurrentDirectory();
+            }
         }
     }
 }

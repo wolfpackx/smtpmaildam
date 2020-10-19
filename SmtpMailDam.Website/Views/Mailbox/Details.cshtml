@@ -15,22 +15,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Name of the mailbox.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Name of the mailbox.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapEnabled)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Enable the IMAP connection for duplicating the mail to the IMAP host.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Enable the IMAP connection for duplicating the mail to the IMAP host.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapEnabled)
@@ -39,22 +31,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Username)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Username for the SmtpMailDam SMTP server that needs to be configurated in the external system.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Username for the SmtpMailDam SMTP server that needs to be configurated in the external system.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.Username)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapHost)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Host of the IMAP server.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Host of the IMAP server.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapHost)
@@ -63,22 +47,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Password)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Password for the SmtpMailDam SMTP server that needs to be configurated in the external system.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Password for the SmtpMailDam SMTP server that needs to be configurated in the external system.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.Password)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapPort)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Port of the IMAP server. Typically this is 993.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Port of the IMAP server. Typically this is 993.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapPort)
@@ -87,22 +63,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SmtpHost)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="SMTP host of SmtpMailDam that needs to be configured in the external system.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("SMTP host of SmtpMailDam that needs to be configured in the external system.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.SmtpHost)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapSSLEnabled)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="SSL is required for connecting to the IMAP server.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("SSL is required for connecting to the IMAP server.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapSSLEnabled)
@@ -111,22 +79,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SmtpPort)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="SMTP port of SmtpMailDam that needs to be configured in the external system.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("SMTP port of SmtpMailDam that needs to be configured in the external system.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.SmtpPort)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapUsername)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Username for connecting to the IMAP server.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Username for connecting to the IMAP server.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapUsername)
@@ -135,22 +95,14 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Passthrough)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="When enabled it will ONLY passthrough the message to the IMAP server.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("When enabled it will ONLY passthrough the message to the IMAP server.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.Passthrough)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapPassword)
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Password for connecting to the IMAP server.">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-            </a>
+            @Html.InfoBox("Password for connecting to the IMAP server.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapPassword)

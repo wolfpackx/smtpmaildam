@@ -16,41 +16,49 @@
             <input type="hidden" asp-for="Origin" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
+                @Html.InfoBox("Name of the mailbox.")
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapEnabled" class="control-label"></label>
+                @Html.InfoBox("Enable sending messages to IMAP server.")
                 <input asp-for="ImapEnabled" class="form-control" />
                 <span asp-validation-for="ImapEnabled" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapHost" class="control-label"></label>
+                @Html.InfoBox("Host of the IMAP server.")
                 <input asp-for="ImapHost" class="form-control" />
                 <span asp-validation-for="ImapHost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapPort" class="control-label"></label>
+                @Html.InfoBox("Port of the IMAP server.")
                 <input asp-for="ImapPort" class="form-control" />
                 <span asp-validation-for="ImapPort" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapSSLEnabled" class="control-label"></label>
+                @Html.InfoBox("Indicate whether SSL should be enforced when connecting to IMAP server. If not enabled it will attempt to connect with SSL but will downgrade if nescessary.")
                 <input asp-for="ImapSSLEnabled" class="form-control" />
                 <span asp-validation-for="ImapSSLEnabled" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapUsername" class="control-label"></label>
+                @Html.InfoBox("IMAP server username.")
                 <input asp-for="ImapUsername" class="form-control" />
                 <span asp-validation-for="ImapUsername" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImapPassword" class="control-label"></label>
+                @Html.InfoBox("IMAP server password.")
                 <input asp-for="ImapPassword" class="form-control" />
                 <span asp-validation-for="ImapPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Passthrough" class="control-label"></label>
+                @Html.InfoBox("When enabled this will only send the message to the IMAP server and not save it to local storage.")
                 <input asp-for="Passthrough" class="form-control" />
                 <span asp-validation-for="Passthrough" class="text-danger"></span>
             </div>
