@@ -12,6 +12,7 @@ services:
             ConnectionStrings__DefaultConnection: ${CONNECTIONSTRING}
             SmtpServer__Port: ${SMTP_PORT}
             SmtpServer__Host: ${SMTP_HOST}
+            Culture: ${CULTURE}
     db:
         build: ./mssql
         ports:

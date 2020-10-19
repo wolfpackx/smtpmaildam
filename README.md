@@ -92,6 +92,7 @@ For Docker-Compose there is a single .env file that contains all the configurati
 | SMTPSECURE | Secure SMTP with a certificate | false |
 | SMTPCERTIFICATEFILEPATH | The path in the SmtpMailDam.Worker container where the Smtp certificate can be found | "" |
 | SMTPCERTIFICATEPASSWORDFILEPATH | The path in the SmpMailDam.Worker container where the Smtp certificate password can be found. | "" |
+| CULTURE | The culture used for showing things like dates, currencies, etc. | "en-US" |
 
 ### SmtpMailDam.Worker appsettings.json
 
@@ -117,6 +118,7 @@ The configuration for the logging can be found in the log4net.config file.
 | ConnectionStrings:DefaultConnection | The database connection string used by the SmtpMailDam.Website component. This can be overriden in Docker-Compose with the CONNECTIONSTRING setting. | "Server=192.168.1.202;Database=smtpmaildam;User Id=sa;Password=P@ssw0rd;" |
 | SmtpServer:Port | The port on which the SmtpMailDam.Worker component is running. This is used to show the necessary configuration on the mailbox. This can be overriden in Docker-Compose with the SMTP_PORT setting. | 587 |
 | SmtpServer:Host | The name of the host on which the SmtpMailDam.Worker component is running. This is used to show the necessary configuration on the mailbox. This can be overriden in Docker-Compose with the SMTP_HOST setting. | "localhost" |
+| Culture | The culture used for showing things like dates, currencies, etc. | "en-US" |
 
 ## Licensing
 

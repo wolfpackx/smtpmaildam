@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmtpMailDam.Common.Interfaces;
 using SmtpMailDam.Common.Repositories;
+using Microsoft.AspNetCore.Localization;
 
 namespace SmtpMailDam.Website
 {
@@ -30,6 +31,11 @@ namespace SmtpMailDam.Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture(this.Configuration.GetValue<string>("Culture"));
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(
@@ -48,6 +54,8 @@ namespace SmtpMailDam.Website
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseRequestLocalization();
+
             loggerFactory.AddLog4Net();
 
             if (env.IsDevelopment())
