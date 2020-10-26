@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using Hangfire;
+using SmtpMailDam.Worker.Jobs;
 
 namespace SmtpMailDam.Worker
 {
@@ -40,6 +42,9 @@ namespace SmtpMailDam.Worker
                         .Build();
                     var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+                    services.AddHangfireServer();
+                    services.AddHangfire(config => config.UseSqlServerStorage(connectionString));
+
                     services.AddHostedService<Worker>();
 
                     services.AddDbContext<ApplicationDbContext>(options =>
@@ -50,6 +55,8 @@ namespace SmtpMailDam.Worker
 
                     services.AddScoped<IMailboxRepository, MailboxRepository>();
                     services.AddScoped<IMailRepository, MailRepository>();
+
+                    services.AddScoped<IMailRetentionJob, MailRetentionJob>();
                 })
                 .ConfigureLogging((loggerBuilder) => {
                     loggerBuilder.AddLog4Net();

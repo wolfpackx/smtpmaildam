@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,6 +43,10 @@ namespace SmtpMailDam.Website.Models
 
         [DisplayName("Passthrough")]
         public bool Passthrough { get; set; }
+
+        [DisplayName("Mail retention in days")]
+        [Range(0, 9999, ErrorMessage = "Price must be between 0 and 9999")]
+        public int MailRetention { get; set; }
 
         public string Origin { get; set; }
 

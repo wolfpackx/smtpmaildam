@@ -56,13 +56,19 @@ namespace SmtpMailDam.Website.Controllers
         public ActionResult Create()
         {
             ViewData["Title"] = $"Create mailbox";
-            return View();
+
+            MailboxViewModel mailbox = new MailboxViewModel
+            {
+                MailRetention = 30
+            };
+
+            return View(mailbox);
         }
 
         // POST: MailboxController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Passthrough")] MailboxViewModel mailbox)
+        public ActionResult Create([Bind("Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Passthrough, MailRetention")] MailboxViewModel mailbox)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +96,7 @@ namespace SmtpMailDam.Website.Controllers
         // POST: MailboxController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin, Passthrough")] MailboxViewModel mailbox)
+        public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin, Passthrough, MailRetention")] MailboxViewModel mailbox)
         {
             if (id != mailbox.MailboxId)
             {
@@ -171,6 +177,7 @@ namespace SmtpMailDam.Website.Controllers
                 ImapUsername = mailbox.ImapUsername,
                 ImapPassword = mailbox.ImapPassword,
                 Passthrough = mailbox.Passthrough,
+                MailRetention = mailbox.MailRetention,
                 Mails = mailbox.Mails != null ? mailbox.Mails.Select(m => this.MapMailToMailViewModel(m, false)).OrderByDescending(m => m.ReceiveDate).ToList() : new List<MailViewModel>()
             };
         }
@@ -243,7 +250,8 @@ namespace SmtpMailDam.Website.Controllers
                 ImapSSLEnabled = mailboxViewModel.ImapSSLEnabled,
                 ImapUsername = mailboxViewModel.ImapUsername,
                 ImapPassword = mailboxViewModel.ImapPassword,
-                Passthrough = mailboxViewModel.Passthrough
+                Passthrough = mailboxViewModel.Passthrough,
+                MailRetention = mailboxViewModel.MailRetention
             };
         }
     }

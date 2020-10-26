@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Hangfire;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SmtpMailDam.Worker.Jobs;
 
 namespace SmtpMailDam.Worker
 {
@@ -21,6 +24,13 @@ namespace SmtpMailDam.Worker
             _logger = logger;
             _serviceProvider = serviceProvider;
             _configuration = configuration;
+        }
+
+        public override async Task StartAsync(CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            this.ScheduleRecurringJobs();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -45,6 +55,12 @@ namespace SmtpMailDam.Worker
                 _serviceProvider.GetRequiredService<ILogger<Smtp.SmtpServer>>());
 
             await smtpServer.Run();
+        }
+
+        private void ScheduleRecurringJobs()
+        {
+            RecurringJob.RemoveIfExists(nameof(MailRetentionJob));
+            RecurringJob.AddOrUpdate<MailRetentionJob>(nameof(MailRetentionJob), job => job.Run(JobCancellationToken.Null), Cron.Daily());
         }
     }
 }

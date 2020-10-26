@@ -30,6 +30,17 @@ namespace SmtpMailDam.Common.Repositories
             this.context.SaveChanges();
         }
 
+        public void ClearOldEmails(Guid mailboxId)
+        {
+            var mailbox = this.Get(mailboxId, true);
+
+            var mails = mailbox.Mails.Where(m => m.ReceiveDate < DateTime.Now.Date.AddDays(-Math.Abs(mailbox.MailRetention)));
+
+            this.context.Mail.RemoveRange(mails);
+
+            this.context.SaveChanges();
+        }
+
         public void Create(Mailbox mailbox)
         {
             this.context.Mailbox.Add(mailbox);
@@ -75,6 +86,7 @@ namespace SmtpMailDam.Common.Repositories
             originalMailbox.ImapUsername = mailbox.ImapUsername;
             originalMailbox.ImapPassword = mailbox.ImapPassword;
             originalMailbox.Passthrough = mailbox.Passthrough;
+            originalMailbox.MailRetention = mailbox.MailRetention;
 
             this.context.Mailbox.Update(originalMailbox);
             this.context.SaveChanges();

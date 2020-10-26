@@ -29,6 +29,8 @@ namespace SmtpMailDam.Common.Models
 
         public bool Passthrough { get; set; }
 
+        public int MailRetention { get; set; }
+
         public ICollection<Mail> Mails { get; set; }
     }
 }

@@ -391,3 +391,18 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201025164645_MailRetention')
+BEGIN
+    ALTER TABLE [Mailbox] ADD [MailRetention] int NOT NULL DEFAULT 0;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201025164645_MailRetention')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201025164645_MailRetention', N'3.1.9');
+END;
+
+GO
+

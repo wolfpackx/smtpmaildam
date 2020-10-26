@@ -20,5 +20,7 @@ namespace SmtpMailDam.Common.Interfaces
         void Delete(Mailbox mailbox);
 
         void ClearMails(Guid mailboxId);
+
+        void ClearOldEmails(Guid mailboxId);
     }
 }

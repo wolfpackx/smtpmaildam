@@ -61,6 +61,12 @@
                 <span asp-validation-for="Passthrough" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="MailRetention" class="control-label"></label>
+                @Html.InfoBox("The number of days to keep the mails in this mailbox.")
+                <input asp-for="MailRetention" class="form-control" />
+                <span asp-validation-for="MailRetention" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </form>
