@@ -65,9 +65,16 @@ namespace SmtpMailDam.Common.Repositories
             }
         }
 
-        public ICollection<Mailbox> GetAll()
+        public ICollection<Mailbox> GetAll(bool includeEmails = false)
         {
-            return this.context.Mailbox.ToList();
+            var mailboxes = this.context.Mailbox;
+
+            if (includeEmails)
+            {
+                return mailboxes.Include(m => m.Mails).ToList();
+            }
+
+            return mailboxes.ToList();
         }
 
         public Mailbox LoginMailboxUser(string username, string password)

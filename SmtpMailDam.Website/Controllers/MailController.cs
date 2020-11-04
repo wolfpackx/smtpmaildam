@@ -102,7 +102,7 @@ namespace SmtpMailDam.Website.Controllers
             string rawEmail = string.Empty;
             string renderedEmail = string.Empty;
 
-            if (transformMimeMessage && mail.RawEmail.Length > 0)
+            if (transformMimeMessage && mail.RawEmail != null && mail.RawEmail.Length > 0)
             {
                 using var ms = new MemoryStream(mail.RawEmail);
                 ms.Position = 0;
@@ -127,8 +127,8 @@ namespace SmtpMailDam.Website.Controllers
 
             return new MailViewModel
             {
-                HtmlBody = mail.HtmlBody.Trim(),
-                TextBody = mail.TextBody.Trim(),
+                HtmlBody = !string.IsNullOrWhiteSpace(mail.HtmlBody) ? mail.HtmlBody.Trim() : string.Empty,
+                TextBody = !string.IsNullOrWhiteSpace(mail.TextBody) ? mail.TextBody.Trim() : string.Empty,
                 RenderedHtml = renderedEmail.Trim(),
                 RawEmail = rawEmail.Trim(),
                 From = mail.From,

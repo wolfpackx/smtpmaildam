@@ -35,7 +35,7 @@ namespace SmtpMailDam.Website.Controllers
         // GET: MailboxController
         public ActionResult Index()
         {
-            var mailboxes = this.mailboxRepository.GetAll();
+            var mailboxes = this.mailboxRepository.GetAll(true).OrderBy(m => m.Name);
 
             ViewData["Title"] = $"Mailboxes";
 
@@ -217,8 +217,8 @@ namespace SmtpMailDam.Website.Controllers
 
             return new MailViewModel
             {
-                HtmlBody = mail.HtmlBody,
-                TextBody = mail.TextBody,
+                HtmlBody = !string.IsNullOrWhiteSpace(mail.HtmlBody) ? mail.HtmlBody.Trim() : string.Empty,
+                TextBody = !string.IsNullOrWhiteSpace(mail.TextBody) ? mail.TextBody.Trim() : string.Empty,
                 RenderedHtml = renderedEmail,
                 RawEmail = rawEmail,
                 From = mail.From,

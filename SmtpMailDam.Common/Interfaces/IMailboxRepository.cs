@@ -7,7 +7,7 @@ namespace SmtpMailDam.Common.Interfaces
 {
     public interface IMailboxRepository
     {
-        ICollection<Mailbox> GetAll();
+        ICollection<Mailbox> GetAll(bool includeEmails = false);
 
         Mailbox LoginMailboxUser(string username, string password);
 

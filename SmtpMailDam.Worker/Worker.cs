@@ -26,15 +26,10 @@ namespace SmtpMailDam.Worker
             _configuration = configuration;
         }
 
-        public override async Task StartAsync(CancellationToken cancellationToken)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            this.ScheduleRecurringJobs();
-        }
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            this.ScheduleRecurringJobs();
+
             var smtpserverOptions = this._configuration.GetSection("SmtpServer");
 
             bool enabled = smtpserverOptions.GetValue<bool>("Enabled");
