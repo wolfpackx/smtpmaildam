@@ -22,5 +22,7 @@ namespace SmtpMailDam.Common.Interfaces
         void ClearMails(Guid mailboxId);
 
         void ClearOldEmails(Guid mailboxId);
+
+        void MarkAllMailsAsRead(Guid mailboxId);
     }
 }

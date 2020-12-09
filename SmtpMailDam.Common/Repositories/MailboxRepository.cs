@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmtpMailDam.Common.Data;
+using SmtpMailDam.Common.Enums;
 using SmtpMailDam.Common.Interfaces;
 using SmtpMailDam.Common.Models;
 using System;
@@ -37,6 +38,20 @@ namespace SmtpMailDam.Common.Repositories
             var mails = mailbox.Mails.Where(m => m.ReceiveDate < DateTime.Now.Date.AddDays(-Math.Abs(mailbox.MailRetention)));
 
             this.context.Mail.RemoveRange(mails);
+
+            this.context.SaveChanges();
+        }
+
+        public void MarkAllMailsAsRead(Guid mailboxId)
+        {
+            var mailbox = this.Get(mailboxId, true);
+
+            var mails = mailbox.Mails.Where(m => m.Status == (int)MailStatus.Unread);
+
+            foreach(var mail in mails)
+            {
+                mail.Status = (int)MailStatus.Read;
+            }
 
             this.context.SaveChanges();
         }

@@ -20,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using SmtpMailDam.Common.Utillity;
 
 namespace SmtpMailDam.Worker.Smtp
 {
@@ -50,7 +51,17 @@ namespace SmtpMailDam.Worker.Smtp
 
             if (mailbox.ImapEnabled && message != null)
             {
-                result = SendMessageToImap(scope, logger, mailbox, message, sessionId, mailId);
+                try
+                {
+                    Imap.SendMessageToImap(mailbox, message);
+
+                    logger.LogInformation($"Storing mail {mailId} in session {sessionId} for mailbox {mailbox.MailboxId} in imap");
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailbox.MailboxId} in imap because: {e.Message}");
+                    result = false;
+                }
             }
 
             if (!mailbox.Passthrough && message != null)
@@ -59,35 +70,6 @@ namespace SmtpMailDam.Worker.Smtp
             }
 
             return result ? Task.FromResult(SmtpResponse.Ok) : Task.FromResult(SmtpResponse.TransactionFailed);
-        }
-
-        private bool SendMessageToImap(IServiceScope scope, ILogger<MessageStore> logger, Common.Models.Mailbox mailbox, MimeMessage message, Guid sessionId, Guid mailId)
-        {
-            try
-            {
-                using (var client = new ImapClient())
-                {
-                    client.ServerCertificateValidationCallback = RemoteCertificateValidationCallback;
-                    client.Connect(mailbox.ImapHost, mailbox.ImapPort, mailbox.ImapSSLEnabled ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.Auto);
-
-                    client.Authenticate(mailbox.ImapUsername, mailbox.ImapPassword);
-
-                    client.Inbox.Append(message);
-
-                    client.Disconnect(true);
-                }
-
-                logger.LogInformation($"Storing mail {mailId} in session {sessionId} for mailbox {mailbox.MailboxId} in imap");
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, $"Storing of mail failed with in session {sessionId} for mailbox {mailbox.MailboxId} in imap because: {e.Message}");
-
-                return false;
-
-            }
         }
 
         private bool SaveMessage(ILogger<MessageStore> logger, IMailRepository mailRepository, ITextMessage textMessage, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
@@ -124,11 +106,6 @@ namespace SmtpMailDam.Worker.Smtp
 
                 return false;
             }
-        }
-
-        public bool RemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
         }
     }
 }

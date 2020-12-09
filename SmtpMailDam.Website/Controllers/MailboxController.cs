@@ -45,7 +45,17 @@ namespace SmtpMailDam.Website.Controllers
         // GET: MailboxController/Details/5
         public ActionResult Details(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             var mailbox = this.mailboxRepository.Get(id, true);
+
+            if (mailbox == null)
+            {
+                return this.NotFound();
+            }
 
             ViewData["Title"] = $"Mailbox {mailbox.Name}";
 
@@ -85,12 +95,25 @@ namespace SmtpMailDam.Website.Controllers
         // GET: MailboxController/Edit/5
         public ActionResult Edit(Guid id, string origin)
         {
-            var mailbox = this.MapMailboxToMailboxViewModel(this.mailboxRepository.Get(id, false));
-            mailbox.Origin = origin;
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
 
-            ViewData["Title"] = $"Edit mailbox {mailbox.Name}";
+            var mailbox = this.mailboxRepository.Get(id, false);  
 
-            return View(mailbox);
+            if (mailbox == null)
+            {
+                return this.NotFound();
+            }
+
+            var mailboxViewModel = this.MapMailboxToMailboxViewModel(mailbox);
+
+            mailboxViewModel.Origin = origin;
+
+            ViewData["Title"] = $"Edit mailbox {mailboxViewModel.Name}";
+
+            return View(mailboxViewModel);
         }
 
         // POST: MailboxController/Edit/5
@@ -98,9 +121,14 @@ namespace SmtpMailDam.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Guid id, [Bind("MailboxId, Name, SmtpPort, SmtpHost, ImapEnabled, ImapSSLEnabled, ImapHost, ImapPort, ImapUsername, ImapPassword, Origin, Passthrough, MailRetention")] MailboxViewModel mailbox)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             if (id != mailbox.MailboxId)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
             if (ModelState.IsValid)
@@ -115,11 +143,23 @@ namespace SmtpMailDam.Website.Controllers
         // GET: MailboxController/Delete/5
         public ActionResult Delete(Guid id)
         {
-            var mailbox = this.MapMailboxToMailboxViewModel(this.mailboxRepository.Get(id, false));
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
 
-            ViewData["Title"] = $"Delete mailbox {mailbox.Name}";
+            var mailbox = this.mailboxRepository.Get(id, false);
 
-            return View(mailbox);
+            if (mailbox == null)
+            {
+                return this.NotFound();
+            }
+
+            var mailboxViewModel = this.MapMailboxToMailboxViewModel(mailbox);
+
+            ViewData["Title"] = $"Delete mailbox {mailboxViewModel.Name}";
+
+            return View(mailboxViewModel);
         }
 
         // POST: MailboxController/Delete/5
@@ -127,6 +167,11 @@ namespace SmtpMailDam.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid id, IFormCollection collection)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             if (ModelState.IsValid)
             {
                 var mailbox = new Mailbox
@@ -143,13 +188,35 @@ namespace SmtpMailDam.Website.Controllers
 
         public ActionResult ClearMails(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             this.mailboxRepository.ClearMails(id);
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        public ActionResult MarkAllEmailsAsRead(Guid id)
+        {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
+            this.mailboxRepository.MarkAllMailsAsRead(id);
 
             return RedirectToAction(nameof(Details), new { id = id });
         }
 
         public ActionResult Refresh(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             return RedirectToAction(nameof(Details), new { id = id });
         }
 

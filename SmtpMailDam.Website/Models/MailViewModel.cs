@@ -31,5 +31,7 @@ namespace SmtpMailDam.Website.Models
         public int Status { get; set; }
 
         public Guid MailboxId { get; set; }
+
+        public IEnumerable<AttachmentViewModel> Attachements { get; set; }
     }
 }

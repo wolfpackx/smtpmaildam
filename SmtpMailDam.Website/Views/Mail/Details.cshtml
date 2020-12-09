@@ -8,7 +8,7 @@
 <div>
     <h4>
         <a asp-controller="Mailbox" asp-action="Details" asp-route-id="@Model.MailboxId"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" /></svg></a>&nbsp;
-        Mail
+        Mail: @Model.Subject
     </h4>
     <hr />
     <dl class="row">
@@ -40,7 +40,11 @@
 </div>
 
 <div>
-    <p><a asp-action="GetMailMessageEml" asp-route-id="@Model.MailId" class="btn btn-primary px-3" title="Download message"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">    <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z" /></svg></a></p>
+    <p>
+        <a asp-action="GetMailMessageEml" asp-route-id="@Model.MailId" class="btn btn-primary px-3" title="Download message"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">    <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z" /></svg></a> |
+        <a href="javascript:;" class="btn btn-primary px-3" id="print" title="Open"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-envelope-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.313l6.709 3.933L8 8.928l1.291.717L16 5.715V5.4a2 2 0 0 0-1.059-1.765l-6-3.2zM16 6.873l-5.693 3.337L16 13.372v-6.5zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516zM0 13.373l5.693-3.163L0 6.873v6.5z" /></svg></a> |
+        <a id="sendToImap" href="javascript: return false;" title="Send to imap" class="btn btn-primary px-3"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z" /></svg></a>
+    </p>
 </div>
 
 <ul class="nav nav-tabs">
@@ -48,11 +52,12 @@
     <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#text">Text</a></li>
     <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#renderedhtml">Rendered html</a></li>
     <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#raw">Raw</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#attachments">Attachments</a></li>
 </ul>
 
 <div class="tab-content" style="min-height:400px">
     <div id="html" class="tab-pane fade show active">
-        <pre>@Html.Raw(Model.HtmlBody)</pre>
+        <pre id="htmlbody">@Html.Raw(Model.HtmlBody)</pre>
     </div>
     <div id="text" class="tab-pane fade">
         <pre>@Html.Raw(Model.TextBody)</pre>
@@ -63,5 +68,56 @@
     <div id="raw" class="tab-pane fade">
         <pre>@Html.Raw(Model.RawEmail)</pre>
     </div>
+    <div id="attachments" class="tab-pane fade">
+        <ul>
+            @foreach (var attachement in Model.Attachements)
+            {
+                var parms = new Dictionary<string, string>
+                {
+                    { "attachmentid", attachement.Id },
+                    { "id", Model.MailId.ToString() }
+                };
+
+                <li>
+                    <a asp-action="GetAttachment" asp-all-route-data="parms" class="btn btn-primary px-3" title="Download attachment">@attachement.Filename</a>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
 <hr />
+
+@section Scripts
+{
+    <script>
+        function nWin() {
+            var w = window.open();
+            var html = $("#htmlbody").html();
+
+            $(w.document.body).html(html);
+        }
+
+        $(function () {
+            $("a#print").click(nWin);
+        });
+
+        $(function () {
+            $("#sendToImap").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SendToImap", new { id = Model.MailId })',
+                    data: '{}',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        alert("Email send to imap");
+                    },
+                    error: function () {
+                        alert("Error while sending to imap");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}

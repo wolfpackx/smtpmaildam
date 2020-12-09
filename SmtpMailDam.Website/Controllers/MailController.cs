@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,17 @@ namespace SmtpMailDam.Website.Controllers
 
         public ActionResult Details(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             var mail = this.mailRepository.Get(id);
+
+            if (mail == null)
+            {
+                return this.NotFound();
+            }
 
             ViewData["Title"] = $"{mail.Subject}";
 
@@ -46,7 +57,17 @@ namespace SmtpMailDam.Website.Controllers
 
         public ActionResult Delete(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             var mail = this.mailRepository.Get(id);
+
+            if (mail == null)
+            {
+                return this.NotFound();
+            }
 
             ViewData["Title"] = $"Delete mail {mail.Subject}";
 
@@ -59,7 +80,17 @@ namespace SmtpMailDam.Website.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Guid.Empty == id)
+                {
+                    return this.BadRequest();
+                }
+
                 var mail = this.mailRepository.Get(id);
+
+                if (mail == null)
+                {
+                    return this.NotFound();
+                }
 
                 var mailboxId = mail.MailboxId;
 
@@ -73,7 +104,17 @@ namespace SmtpMailDam.Website.Controllers
 
         public ActionResult GetMailMessageEml(Guid id)
         {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
             var mail = this.mailRepository.Get(id);
+
+            if (mail == null)
+            {
+                return this.NotFound();
+            }
 
             using (var mailStream = new MemoryStream(mail.RawEmail))
             {
@@ -92,6 +133,90 @@ namespace SmtpMailDam.Website.Controllers
             }
         }
 
+        public ActionResult GetAttachment([FromRoute] Guid id, [FromQuery] string attachmentid)
+        {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
+            var mail = this.mailRepository.Get(id);
+
+            if (mail == null)
+            {
+                return this.NotFound();
+            }
+
+            using var ms = new MemoryStream(mail.RawEmail);
+            ms.Position = 0;
+
+            var message = MimeMessage.Load(ms);
+
+            var visitor = new HtmlPreviewVisitor();
+
+            message.Accept(visitor);
+
+            var attachment = message.Attachments.FirstOrDefault(a => a.IsAttachment && (a.ContentId != null? a.ContentId : a.ContentDisposition.FileName?.GetHashCode().ToString()) == attachmentid);
+
+            if (attachment == null)
+            {
+                return NotFound();
+            }
+
+            var attachmentStream = new MemoryStream();
+
+            if (attachment is MessagePart)
+            {
+                var rfc822 = (MessagePart)attachment;
+
+                rfc822.Message.WriteTo(attachmentStream);
+            }
+            else
+            {
+                var part = (MimePart)attachment;
+
+                part.Content.DecodeTo(attachmentStream);
+            }
+
+            attachmentStream.Position = 0;
+            var result = new FileStreamResult(attachmentStream, attachment.ContentType.MimeType);
+            result.FileDownloadName = attachment.ContentDisposition.FileName;
+
+            return result;
+        }
+
+        [HttpPost]
+        public ActionResult SendToImap(Guid id)
+        {
+            if (Guid.Empty == id)
+            {
+                return this.BadRequest();
+            }
+
+            var mail = this.mailRepository.Get(id);
+
+            if (mail == null)
+            {
+                return this.NotFound();
+            }
+
+            var mailbox = this.mailboxRepository.Get(mail.MailboxId, false);
+
+            if (mailbox == null || !mailbox.ImapEnabled)
+            {
+                return this.NotFound();
+            }
+
+            using var ms = new MemoryStream(mail.RawEmail);
+            ms.Position = 0;
+
+            var message = MimeMessage.Load(ms);
+
+            Imap.SendMessageToImap(mailbox, message);
+
+            return Json(new { Message = "Ok" });
+        }
+
         private MailViewModel MapMailToMailViewModel(Mail mail, bool transformMimeMessage)
         {
             if (mail == null)
@@ -101,6 +226,8 @@ namespace SmtpMailDam.Website.Controllers
 
             string rawEmail = string.Empty;
             string renderedEmail = string.Empty;
+
+            IEnumerable<AttachmentViewModel> attachements = new List<AttachmentViewModel>();
 
             if (transformMimeMessage && mail.RawEmail != null && mail.RawEmail.Length > 0)
             {
@@ -112,6 +239,14 @@ namespace SmtpMailDam.Website.Controllers
                 var visitor = new HtmlPreviewVisitor();
 
                 message.Accept(visitor);
+
+                attachements = message.Attachments.Where(a => a.IsAttachment).Select(a => 
+                    new AttachmentViewModel 
+                    {
+                        Id = a.ContentId != null ? a.ContentId : a.ContentDisposition.FileName?.GetHashCode().ToString(),
+                        Filename = a.ContentDisposition?.FileName,
+                        Size = a.ContentDisposition.Size.HasValue ? a.ContentDisposition.Size.Value : -1
+                    }).ToList();
 
                 renderedEmail = visitor.HtmlBody;
 
@@ -129,7 +264,7 @@ namespace SmtpMailDam.Website.Controllers
             {
                 HtmlBody = !string.IsNullOrWhiteSpace(mail.HtmlBody) ? mail.HtmlBody.Trim() : string.Empty,
                 TextBody = !string.IsNullOrWhiteSpace(mail.TextBody) ? mail.TextBody.Trim() : string.Empty,
-                RenderedHtml = renderedEmail.Trim(),
+                RenderedHtml = PrettifyHtml(renderedEmail.Trim()),
                 RawEmail = rawEmail.Trim(),
                 From = mail.From,
                 MailId = mail.MailId,
@@ -137,8 +272,29 @@ namespace SmtpMailDam.Website.Controllers
                 Status = mail.Status,
                 Subject = mail.Subject,
                 To = mail.To,
-                MailboxId = mail.MailboxId
+                MailboxId = mail.MailboxId,
+                Attachements = attachements
             };
+        }
+
+        private string PrettifyHtml(string html)
+        {
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(html);
+
+                using (StringWriter sw = new StringWriter())
+                {
+                    doc.Save(sw);
+                    return sw.GetStringBuilder().ToString();
+                }
+            }
+            catch
+            {
+                // Invalid xml
+                return html;
+            }
         }
     }
 }
