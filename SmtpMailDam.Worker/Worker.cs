@@ -39,7 +39,7 @@ namespace SmtpMailDam.Worker
                 return;
             }
 
-            Smtp.SmtpServer smtpServer = new Smtp.SmtpServer(
+            Smtp.SmtpServer1 smtpServer = new Smtp.SmtpServer1(
                 _serviceProvider,
                 smtpserverOptions.GetValue<string>("Ports"),
                 smtpserverOptions.GetValue<string>("ServerName"),
@@ -47,7 +47,7 @@ namespace SmtpMailDam.Worker
                 smtpserverOptions.GetValue<bool>("Secure"),
                 smtpserverOptions.GetValue<string>("CertificateFilePath"),
                 smtpserverOptions.GetValue<string>("CertificatePasswordFilePath"),
-                _serviceProvider.GetRequiredService<ILogger<Smtp.SmtpServer>>());
+                _serviceProvider.GetRequiredService<ILogger<Smtp.SmtpServer1>>());
 
             await smtpServer.Run();
         }

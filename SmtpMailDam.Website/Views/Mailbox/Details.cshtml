@@ -54,7 +54,7 @@
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImapPort)
-            @Html.InfoBox("Port of the IMAP server. Typically this is 993.")
+            @Html.InfoBox("Port of the IMAP server. Typically this is 993 for IMAPS and 110 for IMAP.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.ImapPort)
@@ -95,7 +95,7 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Passthrough)
-            @Html.InfoBox("When enabled it will ONLY passthrough the message to the IMAP server.")
+            @Html.InfoBox("When enabled it will ONLY passthrough the message to the IMAP server. The mail stored will NOT be stored within SmtpMailDam.")
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.Passthrough)

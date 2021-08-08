@@ -1,11 +1,8 @@
 ﻿using SmtpMailDam.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using SmtpServer;
-using SmtpServer.Mail;
 using SmtpServer.Protocol;
-using SmtpServer.Storage;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,20 +10,15 @@ using SmtpMailDam.Common.Models;
 using SmtpMailDam.Common.Enums;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using SmtpMailDam.Worker.Smtp;
-using MailKit.Net.Imap;
-using MailKit.Security;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
 using SmtpMailDam.Common.Utillity;
+using System.Buffers;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class MessageStore : global::SmtpServer.Storage.MessageStore
+    public class MessageStore : SmtpServer.Storage.MessageStore
     {
-        public override Task<SmtpResponse> SaveAsync(ISessionContext context, IMessageTransaction transaction, CancellationToken cancellationToken)
+        public override Task<SmtpResponse> SaveAsync(ISessionContext context, IMessageTransaction transaction, ReadOnlySequence<byte> buffer, CancellationToken cancellationToken)
         {
             var scope = (IServiceScope)context.Properties[SmtpServerConstants.Scope];
 
@@ -43,9 +35,17 @@ namespace SmtpMailDam.Worker.Smtp
 
             var mailRepository = scope.ServiceProvider.GetService<IMailRepository>();
 
-            var textMessage = (ITextMessage)transaction.Message;
+            using var messageStream = new MemoryStream();
 
-            MimeMessage message = MimeMessage.Load(textMessage.Content);
+            var position = buffer.GetPosition(0);
+            while (buffer.TryGet(ref position, out var memory))
+            {
+                messageStream.Write(memory.Span);
+            }
+
+            messageStream.Position = 0;
+
+            var message = MimeKit.MimeMessage.LoadAsync(messageStream, cancellationToken).Result;
 
             bool result = true;
 
@@ -66,20 +66,16 @@ namespace SmtpMailDam.Worker.Smtp
 
             if (!mailbox.Passthrough && message != null)
             {
-                result = result && SaveMessage(logger, mailRepository, textMessage, mailId, message, mailboxId, sessionId);
+                result = result && SaveMessage(logger, mailRepository, messageStream, mailId, message, mailboxId, sessionId);
             }
 
             return result ? Task.FromResult(SmtpResponse.Ok) : Task.FromResult(SmtpResponse.TransactionFailed);
         }
 
-        private bool SaveMessage(ILogger<MessageStore> logger, IMailRepository mailRepository, ITextMessage textMessage, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
+        private bool SaveMessage(ILogger<MessageStore> logger, IMailRepository mailRepository, MemoryStream messageStream, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
         {
             try
             {
-                using var ms = new MemoryStream();
-                textMessage.Content.Position = 0;
-                textMessage.Content.CopyTo(ms);
-
                 var mail = new Mail
                 {
                     MailId = mailId,
@@ -91,7 +87,7 @@ namespace SmtpMailDam.Worker.Smtp
                     MailboxId = mailboxId,
                     Status = (int)MailStatus.Unread,
                     Subject = message.Subject,
-                    RawEmail = ms.ToArray()
+                    RawEmail = messageStream.ToArray()
                 };
 
                 mailRepository.Create(mail);

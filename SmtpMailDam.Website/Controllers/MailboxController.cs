@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using log4net.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,7 +10,6 @@ using SmtpMailDam.Common.Models;
 using SmtpMailDam.Website.Models;
 using SmtpMailDam.Common.Utillity;
 using MimeKit;
-using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 
 namespace SmtpMailDam.Website.Controllers
@@ -184,6 +181,13 @@ namespace SmtpMailDam.Website.Controllers
             }
 
             return Delete(id);
+        }
+
+        [HttpPost]
+        public ActionResult TestImapCredentials(string host, int port, bool ssl, string username, string password)
+        {
+            bool res = Imap.TestImapLogin(host, port, ssl, username, password);
+            return Json(new { Success = res });
         }
 
         public ActionResult ClearMails(Guid id)

@@ -81,7 +81,7 @@ namespace SmtpMailDam.Worker
             {
                 return new Uri(
                         Path.GetDirectoryName(
-                            Assembly.GetExecutingAssembly().CodeBase)
+                            Assembly.GetExecutingAssembly().Location)
                         ).LocalPath;
             }
             catch

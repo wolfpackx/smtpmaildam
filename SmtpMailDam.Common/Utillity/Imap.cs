@@ -27,7 +27,34 @@ namespace SmtpMailDam.Common.Utillity
             }
         }
 
-        public static bool RemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        public static bool TestImapLogin(string host, int port, bool ssl, string username, string password)
+        {
+            bool result = false;
+
+            try
+            {
+                using (var client = new ImapClient())
+                {
+                    client.ServerCertificateValidationCallback = RemoteCertificateValidationCallback;
+                    client.Connect(host, port, ssl ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.Auto);
+
+                    client.Authenticate(username, password);
+
+                    client.Disconnect(true);
+                }
+
+                result = true;
+            } 
+            catch (Exception e)
+            {
+                result = false;
+            }
+
+            return result;
+            
+        }
+
+        private static bool RemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }

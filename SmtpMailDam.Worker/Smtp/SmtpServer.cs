@@ -7,15 +7,16 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Net.Security;
 using System.Net;
+using Microsoft.Extensions.DependencyInjection;
+using SmtpServer.ComponentModel;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class SmtpServer
+    public class SmtpServer1
     {
         IServiceProvider serviceProvider;
         private string ports;
@@ -24,9 +25,9 @@ namespace SmtpMailDam.Worker.Smtp
         private bool secure;
         private string certificateFilePath;
         private string certificatePasswordFilePath;
-        private readonly ILogger<SmtpServer> _logger;
+        private readonly ILogger<SmtpServer1> _logger;
 
-        public SmtpServer(IServiceProvider serviceProvider, string ports, string serverName, string sslProtocols, bool secure, string certificateFilePath, string certificatePasswordFilePath, ILogger<SmtpServer> logger)
+        public SmtpServer1(IServiceProvider serviceProvider, string ports, string serverName, string sslProtocols, bool secure, string certificateFilePath, string certificatePasswordFilePath, ILogger<SmtpServer1> logger)
         {
             this.serviceProvider = serviceProvider;
             this.ports = ports;
@@ -45,28 +46,32 @@ namespace SmtpMailDam.Worker.Smtp
             SslProtocols sslProtocols = (SslProtocols)Enum.Parse(typeof(SslProtocols), this.sslProtocols);
 
             var optionsBuilder = new SmtpServerOptionsBuilder()
-            .SupportedSslProtocols(sslProtocols)
             .ServerName(this.serverName)
             .Endpoint(builder =>
-                    builder
+            {
+                builder
                         .AllowUnsecureAuthentication()
                         .AuthenticationRequired()
-                        .Port(ports[0]))
-            .MessageStore(new MessageStore())
-            .MailboxFilter(new MailboxFilter())
-            .UserAuthenticator(new UserAuthenticator());
+                        .Port(ports[0]);
 
-            if (secure)
-            {
-                // this is important when dealing with a certificate that isnt valid
-                ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateValidationFailureForTestingOnly;
+                if (secure)
+                {
+                    // this is important when dealing with a certificate that isnt valid
+                    ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateValidationFailureForTestingOnly;
 
-                optionsBuilder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
-            }
+                    //optionsBuilder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
+                    builder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
+                }
+            });
+
+            var sp = new SmtpServer.ComponentModel.ServiceProvider();
+            sp.Add(new MessageStore());
+            sp.Add(new MailboxFilter());
+            sp.Add(new UserAuthenticator());
 
             var options = optionsBuilder.Build();
 
-            var smtpServer = new global::SmtpServer.SmtpServer(options);
+            var smtpServer = new SmtpServer.SmtpServer(options, sp);
 
             smtpServer.SessionCreated += OnSessionCreated;
             smtpServer.SessionCompleted += OnSessionCompleted;
@@ -88,7 +93,7 @@ namespace SmtpMailDam.Worker.Smtp
             e.Context.CommandExecuting += OnCommandExecuting;
         }
 
-        private void OnCommandExecuting(object sender, SmtpCommandExecutingEventArgs e)
+        private void OnCommandExecuting(object sender, SmtpCommandEventArgs e)
         {
             var sessionId = (Guid)e.Context.Properties[SmtpServerConstants.SessionId];
 

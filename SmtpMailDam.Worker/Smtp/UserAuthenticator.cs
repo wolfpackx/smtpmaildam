@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class UserAuthenticator : IUserAuthenticator, IUserAuthenticatorFactory
+    public class UserAuthenticator : IUserAuthenticator
     {
         public Task<bool> AuthenticateAsync(ISessionContext context, string user, string password, CancellationToken token)
         {

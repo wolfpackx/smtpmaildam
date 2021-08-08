@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class MailboxFilter : IMailboxFilter, IMailboxFilterFactory
+    public class MailboxFilter : IMailboxFilter
     {
         public Task<MailboxFilterResult> CanAcceptFromAsync(ISessionContext context, IMailbox @from, int size, CancellationToken cancellationToken)
         {
