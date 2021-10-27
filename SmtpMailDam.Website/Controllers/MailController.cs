@@ -163,20 +163,7 @@ namespace SmtpMailDam.Website.Controllers
                 return NotFound();
             }
 
-            var attachmentStream = new MemoryStream();
-
-            if (attachment is MessagePart)
-            {
-                var rfc822 = (MessagePart)attachment;
-
-                rfc822.Message.WriteTo(attachmentStream);
-            }
-            else
-            {
-                var part = (MimePart)attachment;
-
-                part.Content.DecodeTo(attachmentStream);
-            }
+            var attachmentStream = ParseAttachment(attachment);
 
             attachmentStream.Position = 0;
             var result = new FileStreamResult(attachmentStream, attachment.ContentType.MimeType);
@@ -240,12 +227,15 @@ namespace SmtpMailDam.Website.Controllers
 
                 message.Accept(visitor);
 
+                int attachment = 1;
+
                 attachements = message.Attachments.Where(a => a.IsAttachment).Select(a => 
                     new AttachmentViewModel 
                     {
                         Id = a.ContentId != null ? a.ContentId : a.ContentDisposition.FileName?.GetHashCode().ToString(),
-                        Filename = a.ContentDisposition?.FileName,
-                        Size = a.ContentDisposition.Size.HasValue ? a.ContentDisposition.Size.Value : -1
+                        Filename = !string.IsNullOrWhiteSpace(a.ContentDisposition?.FileName) ? a.ContentDisposition?.FileName : $"Attachement {attachment++}",
+                        Size = a.ContentDisposition.Size.HasValue ? a.ContentDisposition.Size.Value : ParseAttachment(a).Length,
+                        MimeType = a.ContentType.MimeType
                     }).ToList();
 
                 renderedEmail = visitor.HtmlBody;
@@ -295,6 +285,26 @@ namespace SmtpMailDam.Website.Controllers
                 // Invalid xml
                 return html;
             }
+        }
+
+        private MemoryStream ParseAttachment(MimeEntity attachment)
+        {
+            var attachmentStream = new MemoryStream();
+
+            if (attachment is MessagePart)
+            {
+                var rfc822 = (MessagePart)attachment;
+
+                rfc822.Message.WriteTo(attachmentStream);
+            }
+            else
+            {
+                var part = (MimePart)attachment;
+
+                part.Content.DecodeTo(attachmentStream);
+            }
+
+            return attachmentStream;
         }
     }
 }

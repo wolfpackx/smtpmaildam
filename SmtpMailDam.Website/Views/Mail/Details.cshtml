@@ -79,7 +79,7 @@
                 };
 
                 <li>
-                    <a asp-action="GetAttachment" asp-all-route-data="parms" class="btn btn-primary px-3" title="Download attachment">@attachement.Filename</a>
+                    <a asp-action="GetAttachment" asp-all-route-data="parms" class="btn btn-primary px-3" title="Download attachment">@attachement.Filename</a> - Size: @attachement.Size bytes - Mime type: @attachement.MimeType
                 </li>
             }
         </ul>

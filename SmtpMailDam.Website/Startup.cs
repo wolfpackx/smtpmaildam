@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using SmtpMailDam.Common.Interfaces;
 using SmtpMailDam.Common.Repositories;
 using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace SmtpMailDam.Website
 {
@@ -33,10 +34,17 @@ namespace SmtpMailDam.Website
         {
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            var culture = this.Configuration.GetValue<string>("Culture");
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                options.DefaultRequestCulture = new RequestCulture(this.Configuration.GetValue<string>("Culture"));
+                options.DefaultRequestCulture = new RequestCulture(culture);
             });
+
+            var cultureInfo = new CultureInfo(culture);
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {

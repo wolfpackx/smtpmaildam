@@ -13,5 +13,7 @@ namespace SmtpMailDam.Website.Models
         public string Filename { get; set; }
 
         public long Size { get; set; }
+
+        public string MimeType { get; set; }
     }
 }
