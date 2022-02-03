@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f88d4556-8c63-496b-874f-2c52487dd003": {
+      "ProjectGuid": "f88d4556-8c63-496b-874f-2c52487dd003",
+      "DisplayName": "SmtpMailDam.Common",
+      "ColorIndex": 0
+    },
+    "1832c0c9-7ef5-408d-925e-9b5d2e062915": {
+      "ProjectGuid": "1832c0c9-7ef5-408d-925e-9b5d2e062915",
+      "DisplayName": "SmtpMailDam.Website",
+      "ColorIndex": 1
+    },
+    "0df11e5c-6b0e-4163-bf9f-2d30cacf7a90": {
+      "ProjectGuid": "0df11e5c-6b0e-4163-bf9f-2d30cacf7a90",
+      "DisplayName": "SmtpMailDam.Worker",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

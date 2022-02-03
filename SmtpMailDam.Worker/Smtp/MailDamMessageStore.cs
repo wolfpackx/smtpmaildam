@@ -13,16 +13,17 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 using SmtpMailDam.Common.Utillity;
 using System.Buffers;
+using SmtpServer.Storage;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class MessageStore : SmtpServer.Storage.MessageStore
+    public class MailDamMessageStore : MessageStore
     {
         public override Task<SmtpResponse> SaveAsync(ISessionContext context, IMessageTransaction transaction, ReadOnlySequence<byte> buffer, CancellationToken cancellationToken)
         {
             var scope = (IServiceScope)context.Properties[SmtpServerConstants.Scope];
 
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<MessageStore>>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<MailDamMessageStore>>();
 
             Guid sessionId = (Guid)context.Properties[SmtpServerConstants.SessionId];
             var mailboxId = (Guid)context.Properties[SmtpServerConstants.Mailbox];
@@ -72,7 +73,7 @@ namespace SmtpMailDam.Worker.Smtp
             return result ? Task.FromResult(SmtpResponse.Ok) : Task.FromResult(SmtpResponse.TransactionFailed);
         }
 
-        private bool SaveMessage(ILogger<MessageStore> logger, IMailRepository mailRepository, MemoryStream messageStream, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
+        private bool SaveMessage(ILogger<MailDamMessageStore> logger, IMailRepository mailRepository, MemoryStream messageStream, Guid mailId, MimeMessage message, Guid mailboxId, Guid sessionId)
         {
             try
             {

@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class MailboxFilter : IMailboxFilter
+    public class MailDamMailboxFilter : MailboxFilter
     {
-        public Task<MailboxFilterResult> CanAcceptFromAsync(ISessionContext context, IMailbox @from, int size, CancellationToken cancellationToken)
+        public override Task<MailboxFilterResult> CanAcceptFromAsync(ISessionContext context, IMailbox @from, int size, CancellationToken cancellationToken)
         {
             return Task.FromResult(MailboxFilterResult.Yes);
         }
 
-        public Task<MailboxFilterResult> CanDeliverToAsync(ISessionContext context, IMailbox to, IMailbox @from, CancellationToken token)
+        public override Task<MailboxFilterResult> CanDeliverToAsync(ISessionContext context, IMailbox to, IMailbox @from, CancellationToken token)
         {
             return Task.FromResult(MailboxFilterResult.Yes);
         }
 
         public IMailboxFilter CreateInstance(ISessionContext context)
         {
-            return new MailboxFilter();
+            return new MailDamMailboxFilter();
         }
     }
 }

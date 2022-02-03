@@ -46,28 +46,33 @@ namespace SmtpMailDam.Worker.Smtp
             SslProtocols sslProtocols = (SslProtocols)Enum.Parse(typeof(SslProtocols), this.sslProtocols);
 
             var optionsBuilder = new SmtpServerOptionsBuilder()
-            .ServerName(this.serverName)
-            .Endpoint(builder =>
+            .ServerName(this.serverName);
+
+            foreach (int port in ports)
             {
-                builder
+                optionsBuilder.Endpoint(builder =>
+                {
+                    builder
                         .AllowUnsecureAuthentication()
                         .AuthenticationRequired()
-                        .Port(ports[0]);
+                        .Port(port);
 
-                if (secure)
-                {
-                    // this is important when dealing with a certificate that isnt valid
-                    ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateValidationFailureForTestingOnly;
+                    if (secure)
+                    {
+                        // this is important when dealing with a certificate that isnt valid
+                        ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateValidationFailureForTestingOnly;
 
-                    //optionsBuilder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
-                    builder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
-                }
-            });
+                        builder.Certificate(CreateCertificate(this.certificateFilePath, this.certificatePasswordFilePath));
+                    }
+                });
+            }
+
+            
 
             var sp = new SmtpServer.ComponentModel.ServiceProvider();
-            sp.Add(new MessageStore());
-            sp.Add(new MailboxFilter());
-            sp.Add(new UserAuthenticator());
+            sp.Add(new MailDamMessageStore());
+            sp.Add(new MailDamMailboxFilter());
+            sp.Add(new MailDamUserAuthenticator());
 
             var options = optionsBuilder.Build();
 
@@ -136,6 +141,11 @@ namespace SmtpMailDam.Worker.Smtp
 
         private static X509Certificate2 CreateCertificate(string certificateFilePath, string passwordFilePath)
         {
+            if (string.IsNullOrWhiteSpace(certificateFilePath) || string.IsNullOrWhiteSpace(passwordFilePath))
+            {
+                return null;
+            }
+
             // to create an X509Certificate for testing you need to run MAKECERT.EXE and then PVK2PFX.EXE
             // http://www.digitallycreated.net/Blog/38/using-makecert-to-create-certificates-for-development
 

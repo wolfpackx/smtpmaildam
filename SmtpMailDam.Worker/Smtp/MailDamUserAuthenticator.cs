@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace SmtpMailDam.Worker.Smtp
 {
-    public class UserAuthenticator : IUserAuthenticator
+    public class MailDamUserAuthenticator : UserAuthenticator
     {
-        public Task<bool> AuthenticateAsync(ISessionContext context, string user, string password, CancellationToken token)
+        public override Task<bool> AuthenticateAsync(ISessionContext context, string user, string password, CancellationToken token)
         {
             var scope = (IServiceScope)context.Properties[SmtpServerConstants.Scope];
 
-            ILogger<UserAuthenticator> logger = scope.ServiceProvider.GetRequiredService<ILogger<UserAuthenticator>>();
+            ILogger<MailDamUserAuthenticator> logger = scope.ServiceProvider.GetRequiredService<ILogger<MailDamUserAuthenticator>>();
 
             Guid sessionId = (Guid)context.Properties[SmtpServerConstants.SessionId];
 
@@ -45,11 +45,6 @@ namespace SmtpMailDam.Worker.Smtp
 
                 return Task.FromResult(false);
             }
-        }
-
-        public IUserAuthenticator CreateInstance(ISessionContext context)
-        {
-            return new UserAuthenticator();
         }
     }
 }
