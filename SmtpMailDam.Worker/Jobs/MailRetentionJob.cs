@@ -1,10 +1,7 @@
 ﻿using Hangfire;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SmtpMailDam.Common.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmtpMailDam.Worker.Jobs
@@ -18,13 +15,11 @@ namespace SmtpMailDam.Worker.Jobs
     {
         private readonly ILogger<MailRetentionJob> logger;
         private readonly IMailboxRepository mailboxRepository;
-        private readonly IConfiguration configuration;
 
-        public MailRetentionJob(ILogger<MailRetentionJob> logger, IMailboxRepository mailboxRepository, IConfiguration configuration)
+        public MailRetentionJob(ILogger<MailRetentionJob> logger, IMailboxRepository mailboxRepository)
         {
             this.logger = logger;
             this.mailboxRepository = mailboxRepository;
-            this.configuration = configuration;
         }
 
         public async Task Run(IJobCancellationToken token)

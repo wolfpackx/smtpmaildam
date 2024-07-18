@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>SmtpMailDam.Worker</ActiveDebugProfile>
-    <_LastSelectedProfileId>E:\projecten\dotnet\SmtpMailDam\SmtpMailDam.Worker\Properties\PublishProfiles\Publish Worker.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>E:\projecten\dotnet\smtpmaildam\SmtpMailDam.Worker\Properties\PublishProfiles\Publish Worker.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

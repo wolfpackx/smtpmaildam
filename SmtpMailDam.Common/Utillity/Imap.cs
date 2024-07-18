@@ -3,10 +3,8 @@ using MailKit.Security;
 using MimeKit;
 using SmtpMailDam.Common.Models;
 using System;
-using System.Collections.Generic;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using MailKit;
 
 namespace SmtpMailDam.Common.Utillity

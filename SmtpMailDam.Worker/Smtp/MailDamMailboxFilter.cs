@@ -11,14 +11,14 @@ namespace SmtpMailDam.Worker.Smtp
 {
     public class MailDamMailboxFilter : MailboxFilter
     {
-        public override Task<MailboxFilterResult> CanAcceptFromAsync(ISessionContext context, IMailbox @from, int size, CancellationToken cancellationToken)
+        public override Task<bool> CanAcceptFromAsync(ISessionContext context, IMailbox @from, int size, CancellationToken cancellationToken)
         {
-            return Task.FromResult(MailboxFilterResult.Yes);
+            return Task.FromResult(true);
         }
 
-        public override Task<MailboxFilterResult> CanDeliverToAsync(ISessionContext context, IMailbox to, IMailbox @from, CancellationToken token)
+        public override Task<bool> CanDeliverToAsync(ISessionContext context, IMailbox to, IMailbox @from, CancellationToken token)
         {
-            return Task.FromResult(MailboxFilterResult.Yes);
+            return Task.FromResult(true);
         }
 
         public IMailboxFilter CreateInstance(ISessionContext context)

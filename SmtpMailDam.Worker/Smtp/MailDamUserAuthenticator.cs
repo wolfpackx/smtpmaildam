@@ -2,10 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SmtpMailDam.Common.Interfaces;
 using SmtpServer;
-using SmtpServer.Authentication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
